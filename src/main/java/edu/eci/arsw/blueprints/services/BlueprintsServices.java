@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.blueprints.services;
 
+import edu.eci.arsw.blueprints.filters.Filter;
 import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
@@ -23,14 +24,23 @@ import org.springframework.stereotype.Service;
 public class BlueprintsServices {
    
     @Autowired
-    BlueprintsPersistence bpp=null;
+    BlueprintsPersistence bpp;
+
+    @Autowired
+    private Filter filter;
     
     public void addNewBlueprint(Blueprint bp){
-        
+        try{
+            bpp.saveBlueprint(bp);
+        }catch (Exception ex){
+            ex.printStackTrace();
+            throw new UnsupportedOperationException("User Already exists");
+        }
     }
     
     public Set<Blueprint> getAllBlueprints(){
-        return null;
+
+        return filter.filterBlueprints(bpp.getAllBluePrints());
     }
     
     /**
@@ -41,7 +51,7 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if there is no such blueprint
      */
     public Blueprint getBlueprint(String author,String name) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return filter.filterPlain(bpp.getBlueprint(author, name));
     }
     
     /**
@@ -51,7 +61,8 @@ public class BlueprintsServices {
      * @throws BlueprintNotFoundException if the given author doesn't exist
      */
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException{
-        throw new UnsupportedOperationException("Not supported yet."); 
+        return filter.filterBlueprints(bpp.getBlueprintsByAuthor(author));
     }
-    
+
+
 }
