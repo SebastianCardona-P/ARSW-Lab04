@@ -1,18 +1,22 @@
 package edu.eci.arsw.blueprints.filters.impl;
 
-import edu.eci.arsw.blueprints.filters.Filter;
-import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.model.Point;
-import org.springframework.stereotype.Service;
+import edu.eci.arsw.blueprints.filters.*;
+import edu.eci.arsw.blueprints.model.*;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
+/**
+ * Implementación del filtro de redundancia para blueprints.
+ * Este filtro elimina puntos consecutivos repetidos en un blueprint.
+ */
 
 //@Service
 public class RedundancyFilter implements Filter {
 
+    /**
+     * Filtra un blueprint eliminando puntos consecutivos duplicados.
+     * @param blueprint Blueprint a filtrar.
+     * @return Blueprint filtrado sin puntos redundantes.
+     */
     @Override
     public Blueprint filterPlain(Blueprint blueprint){
 
@@ -29,11 +33,9 @@ public class RedundancyFilter implements Filter {
             Point prev = originalPoints.get(i-1);
             Point current = originalPoints.get(i);
 
-            // Solo agregamos el punto si no es igual al anterior
             if (!(prev.getX() == current.getX() && prev.getY() == current.getY())) {
                 filteredPoints.add(current);
             }
-
         }
 
         // Convertimos la lista a un array de puntos
@@ -41,6 +43,11 @@ public class RedundancyFilter implements Filter {
         return new Blueprint(blueprint.getAuthor(), blueprint.getName(), resultPoints);
     }
 
+    /**
+     * Filtra un conjunto de blueprints aplicando el filtro de redundancia a cada uno.
+     * @param blueprints Conjunto de blueprints a filtrar.
+     * @return Conjunto de blueprints filtrados.
+     */
     @Override
     public Set<Blueprint> filterBlueprints(Set<Blueprint> blueprints){
         Set<Blueprint> newBlueprintSet = new HashSet<>();
@@ -48,7 +55,6 @@ public class RedundancyFilter implements Filter {
         for(Blueprint i: blueprints){
             newBlueprintSet.add(filterPlain(i));
         }
-
         return newBlueprintSet;
     }
 }

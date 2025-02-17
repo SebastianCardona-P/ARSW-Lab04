@@ -1,18 +1,22 @@
 package edu.eci.arsw.blueprints.filters.impl;
 
-import edu.eci.arsw.blueprints.filters.Filter;
-import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.model.Point;
+import edu.eci.arsw.blueprints.filters.*;
+import edu.eci.arsw.blueprints.model.*;
 import org.springframework.stereotype.Service;
+import java.util.*;
 
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-
+/**
+ * Implementación del filtro de submuestreo para blueprints.
+ * Este filtro elimina uno de cada dos puntos en un blueprint para reducir su tamaño.
+ */
 @Service
 public class SubSampleFilter implements Filter {
 
-
+    /**
+     * Filtra un blueprint eliminando uno de cada dos puntos.
+     * @param blueprint Blueprint a filtrar.
+     * @return Blueprint filtrado con la mitad de los puntos originales.
+     */
     @Override
     public Blueprint filterPlain(Blueprint blueprint) {
 
@@ -30,6 +34,12 @@ public class SubSampleFilter implements Filter {
 
         return new Blueprint(blueprint.getAuthor(), blueprint.getName(), filteredPoints);
     }
+
+    /**
+     * Filtra un conjunto de blueprints aplicando el submuestreo a cada uno.
+     * @param blueprints Conjunto de blueprints a filtrar.
+     * @return Conjunto de blueprints filtrados.
+     */
     @Override
     public Set<Blueprint> filterBlueprints(Set<Blueprint> blueprints) {
         Set<Blueprint> newBlueprintSet = new HashSet<>();

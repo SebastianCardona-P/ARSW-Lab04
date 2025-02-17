@@ -2,6 +2,11 @@ package edu.eci.arsw.blueprints.persistence.impl;
 
 import java.util.Objects;
 
+/**
+ * Clase genérica Tuple que representa un par de valores.
+ * @param <T1> Tipo del primer elemento de la tupla.
+ * @param <T2> Tipo del segundo elemento de la tupla.
+ */
 public class Tuple<T1, T2> {
 
     T1 o1;

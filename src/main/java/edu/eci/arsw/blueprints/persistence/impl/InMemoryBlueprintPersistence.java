@@ -1,25 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.eci.arsw.blueprints.persistence.impl;
 
-import edu.eci.arsw.blueprints.model.Blueprint;
-import edu.eci.arsw.blueprints.model.Point;
-import edu.eci.arsw.blueprints.persistence.BlueprintNotFoundException;
-import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
-import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
+import edu.eci.arsw.blueprints.model.*;
+import edu.eci.arsw.blueprints.persistence.*;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
- *
- * @author hcadavid
+ * Implementación en memoria de la persistencia de planos.
+ * Almacena los planos en un mapa en memoria.
  */
 @Service
 public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
@@ -34,6 +22,11 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         
     }
 
+    /**
+     * Guarda un nuevo blueprint en la memoria.
+     * @param bp El blueprint a guardar.
+     * @throws BlueprintPersistenceException si el blueprint ya existe.
+     */
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
         String authorTrimmed = bp.getAuthor().trim();
@@ -48,6 +41,13 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
 
 
+    /**
+     * Obtiene un blueprint por autor y nombre.
+     * @param author Nombre del autor.
+     * @param bprintname Nombre del blueprint.
+     * @return El blueprint correspondiente.
+     * @throws BlueprintNotFoundException si no se encuentra el blueprint.
+     */
     @Override
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
         String authorTrimmed = author.trim();
@@ -59,6 +59,12 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         return bp;
     }
 
+    /**
+     * Obtiene todos los blueprints de un autor específico.
+     * @param author Nombre del autor.
+     * @return Un conjunto de blueprints del autor.
+     * @throws BlueprintNotFoundException si el autor no tiene blueprints.
+     */
     @Override
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
         String authorTrimmed = author.trim();
@@ -75,7 +81,10 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         return result;
     }
 
-
+    /**
+     * Obtiene todos los blueprints almacenados en memoria.
+     * @return Un conjunto de todos los blueprints.
+     */
     @Override
     public Set<Blueprint> getAllBluePrints(){
         Set<Blueprint> blueprintSet = new HashSet<>();

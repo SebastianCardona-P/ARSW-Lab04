@@ -1,12 +1,10 @@
-
 package edu.eci.arsw.blueprints.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-
+/**
+ * Representa un blueprint con un autor, nombre y una lista de puntos.
+ */
 public class Blueprint {
 
     private String author=null;
