@@ -1,10 +1,15 @@
-## Escuela Colombiana de Ingeniería
+# Laboratorio Componentes y Conectores - Parte 1
 
-## Arquitecturas de Software
+## Autores
+- **Sebastián Cardona**
+- **Laura Gil**
+- **Zayra Gutiérrez**
 
-# Componentes y conectores - Parte I.
+### Universidad Escuela Colombiana de Ingeniería Julio Garavito  
+**Docente:** Javier Toquica Barrera  
+**Semestre:** 2025-1  
 
-El ejercicio se debe traer terminado para el siguiente laboratorio (Parte II).
+---
 
 #### Middleware- gestión de planos.
 
@@ -17,13 +22,10 @@ En este ejercicio se va a construír un modelo de clases para la capa lógica de
 
 1. Configure la aplicación para que funcione bajo un esquema de inyección de dependencias, tal como se muestra en el diagrama anterior.
 
-
 	Lo anterior requiere:
-
 	* Agregar las dependencias de Spring.
 	* Agregar la configuración de Spring.
 	* Configurar la aplicación -mediante anotaciones- para que el esquema de persistencia sea inyectado al momento de ser creado el bean 'BlueprintServices'.
-
 
 2. Complete los operaciones getBluePrint() y getBlueprintsByAuthor(). Implemente todo lo requerido de las capas inferiores (por ahora, el esquema de persistencia disponible 'InMemoryBlueprintPersistence') agregando las pruebas correspondientes en 'InMemoryPersistenceTest'.
 
@@ -33,4 +35,33 @@ En este ejercicio se va a construír un modelo de clases para la capa lógica de
 	* (A) Filtrado de redundancias: suprime del plano los puntos consecutivos que sean repetidos.
 	* (B) Filtrado de submuestreo: suprime 1 de cada 2 puntos del plano, de manera intercalada.
 
-5. Agrege las pruebas correspondientes a cada uno de estos filtros, y pruebe su funcionamiento en el programa de prueba, comprobando que sólo cambiando la posición de las anotaciones -sin cambiar nada más-, el programa retorne los planos filtrados de la manera (A) o de la manera (B). 
+5. Agrege las pruebas correspondientes a cada uno de estos filtros, y pruebe su funcionamiento en el programa de prueba, comprobando que sólo cambiando la posición de las anotaciones -sin cambiar nada más-, el programa retorne los planos filtrados de la manera (A) o de la manera (B).
+
+#### Pruebas con POSTMAN
+- **Colección Filtro "REDUNDANCY"**
+  - Crear un blueprint.
+  - Consultar todos los blueprints.
+  - Consultar blueprint por nombre y autor.
+  - Consultar blueprints de un autor.
+  - Validar eliminación de puntos redundantes.
+
+- **Colección Filtro "SubSample"**
+  - Crear un blueprint.
+  - Consultar todos los blueprints.
+  - Consultar blueprint por nombre y autor.
+  - Consultar blueprints de un autor.
+  - Validar eliminación de puntos intercalados.
+
+Las colecciones de pruebas de **Postman** están disponibles en el repositorio.
+
+---
+
+## Conclusiones
+
+- **Spring** permite desarrollar sistemas modulares y mantenibles mediante inyección de dependencias.
+- La arquitectura implementada facilita la extensibilidad del sistema con nuevos filtros y servicios sin afectar su estructura.
+- Las pruebas en **Postman** validan correctamente la funcionalidad de la aplicación.
+- La persistencia en memoria simplifica el desarrollo y prueba, pero para entornos de producción se recomienda una base de datos más robusta.
+- La implementación basada en **Spring** demuestra la importancia de utilizar frameworks adecuados para la gestión eficiente de aplicaciones empresariales.
+
+---
